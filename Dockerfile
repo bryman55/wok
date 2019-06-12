@@ -3,6 +3,8 @@ MAINTAINER Bryan Rodriguez <email@bryanrodriguez.com>
 
 ARG WOK_VER=2.5.0
 ARG KIMCHI_VER=2.5.0
+ARG GINGERBASE_VER=2.3.0
+ARG GINGER_VER=2.4.0
 USER 0
 
 RUN yum update -y && yum install -y \
@@ -28,11 +30,6 @@ RUN git clone -b $KIMCHI_VER --single-branch https://github.com/kimchi-project/k
     make && \
     make rpm
 	
-RUN git clone --recursive https://github.com/kimchi-project/wok.git plugins && \
-    cd plugins && \
-    git submodule update --remote && \
-    ./build-all.sh
-
 FROM centos/systemd
 MAINTAINER Bryan Rodriguez <email@bryanrodriguez.com>
 
@@ -42,6 +39,8 @@ ARG KIMCHI_VER=2.5.0
 WORKDIR /tmp
 COPY --from=builder /opt/app-root/src/wok/rpm/RPMS/noarch/wok-$WOK_VER-0.el7.noarch.rpm wok.el7.noarch.rpm
 COPY --from=builder /opt/app-root/src/kimchi/rpm/RPMS/noarch/kimchi-$KIMCHI_VER-0.el7.noarch.rpm kimchi.el7.noarch.rpm
+RUN wget -O gingerbase.el7.noarch.rpm http://kimchi-project.github.io/gingerbase/downloads/ginger-base-$GINGERBASE_VER-0.noarch.rpm
+RUN wget -O ginger.el7.noarch.rpm http://kimchi-project.github.io/ginger/downloads/ginger-$GINGER_VER-0.noarch.rpm
 
 RUN yum update -y && yum install -y epel-release
 
@@ -85,9 +84,11 @@ RUN yum update -y -v && yum install -y \
 
 RUN yum install -y \
 		wok.el7.noarch.rpm \
-		kimchi.el7.noarch.rpm && \
-    rm -f wok.el7.noarch.rpm kimchi.el7.noarch.rpm && \
-    systemctl enable wokd.service
+		kimchi.el7.noarch.rpm \
+		gingerbase.el7.noarch.rpm \
+		ginger.el7.noarch.rpm \
+    && rm -f *.rpm \
+    && systemctl enable wokd.service
 	
 RUN useradd wok-admin
 
