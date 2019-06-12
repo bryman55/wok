@@ -41,8 +41,10 @@ WORKDIR /tmp
 RUN yum update -y -v && yum install -y wget && yum clean all && rm -rf /var/cache/yum
 COPY --from=builder /opt/app-root/src/wok/rpm/RPMS/noarch/wok-$WOK_VER-0.el7.noarch.rpm wok.el7.noarch.rpm
 COPY --from=builder /opt/app-root/src/kimchi/rpm/RPMS/noarch/kimchi-$KIMCHI_VER-0.el7.noarch.rpm kimchi.el7.noarch.rpm
-RUN wget -O gingerbase.el7.noarch.rpm http://kimchi-project.github.io/gingerbase/downloads/ginger-base-$GINGERBASE_VER-0.noarch.rpm
-RUN wget -O ginger.el7.noarch.rpm http://kimchi-project.github.io/ginger/downloads/ginger-$GINGER_VER-0.noarch.rpm
+# RUN wget -O gingerbase.el7.noarch.rpm http://kimchi-project.github.io/gingerbase/downloads/ginger-base-$GINGERBASE_VER-0.noarch.rpm
+RUN wget -O gingerbase.el7.noarch.rpm http://kimchi-project.github.io/gingerbase/downloads/latest/ginger-base.el7.centos.noarch.rpm
+# RUN wget -O ginger.el7.noarch.rpm http://kimchi-project.github.io/ginger/downloads/ginger-$GINGER_VER-0.noarch.rpm
+RUN wget -O ginger.el7.noarch.rpm http://kimchi-project.github.io/ginger/downloads/latest/ginger.el7.centos.noarch.rpm
 
 RUN yum update -y && yum install -y epel-release
 
@@ -84,12 +86,12 @@ RUN yum update -y -v && yum install -y \
 	&& yum clean all \
 	&& rm -rf /var/cache/yum
 	
-RUN yum update -y -v && yum install -y \
-		pyparted \
-		python-cherrypy \
-		gettext \
-	&& yum clean all \
-	&& rm -rf /var/cache/yum
+# RUN yum update -y -v && yum install -y \
+		# pyparted \
+		# python-cherrypy \
+		# gettext \
+	# && yum clean all \
+	# && rm -rf /var/cache/yum
 
 RUN yum install -y \
 		wok.el7.noarch.rpm \
