@@ -85,9 +85,9 @@ RUN yum update -y -v && yum install -y \
 	&& rm -rf /var/cache/yum
 	
 RUN yum update -y -v && yum install -y \
-		python-parted \
-		python-CherryPy \
-		gettext-tools \
+		pyparted \
+		python-cherrypy \
+		gettext \
 	&& yum clean all \
 	&& rm -rf /var/cache/yum
 
