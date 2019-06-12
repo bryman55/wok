@@ -83,6 +83,13 @@ RUN yum update -y -v && yum install -y \
 		python-pillow \
 	&& yum clean all \
 	&& rm -rf /var/cache/yum
+	
+RUN yum update -y -v && yum install -y \
+		python-parted \
+		python-CherryPy \
+		gettext-tools \
+	&& yum clean all \
+	&& rm -rf /var/cache/yum
 
 RUN yum install -y \
 		wok.el7.noarch.rpm \
@@ -96,7 +103,10 @@ RUN useradd wok-admin
 
 WORKDIR /
 
+ENV USERNAME 'wok-admin'
+ENV HASHPASS '$6$JQla14fc5vWHfON9$j4Z7ODZcQpP4UHCLE2kMDjVVe6MS70VTgIjS10mVvfHylIRnFRjJiRNuP70rLTrDW5twYp2Z.IMUwFRTL.QxU1'
+
 EXPOSE 8001 8010
 
-ENTRYPOINT ["/usr/sbin/init"]
-CMD []
+ENTRYPOINT ["sh -c"]
+CMD ["useradd -p $HASHPASS $USERNAME && /usr/sbin/init"]
