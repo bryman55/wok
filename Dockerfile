@@ -35,8 +35,8 @@ ARG WOK_VER=2.5.0
 ARG KIMCHI_VER=2.5.0
 
 WORKDIR /tmp
-COPY --from=builder /wok/rpm/RPMS/noarch/wok-$WOK_VER-0.el7.noarch.rpm wok.el7.noarch.rpm
-COPY --from=builder /kimchi/rpm/RPMS/noarch/kimchi-$KIMCHI_VER-0.el7.noarch.rpm kimchi.el7.noarch.rpm
+COPY --from=builder /opt/app-root/src/wok/rpm/RPMS/noarch/wok-$WOK_VER-0.el7.noarch.rpm wok.el7.noarch.rpm
+COPY --from=builder /opt/app-root/src/kimchi/rpm/RPMS/noarch/kimchi-$KIMCHI_VER-0.el7.noarch.rpm
 
 RUN yum update -y && yum install -y epel-release
 
