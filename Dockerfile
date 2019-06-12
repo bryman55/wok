@@ -3,8 +3,7 @@ MAINTAINER Bryan Rodriguez <email@bryanrodriguez.com>
 
 ARG WOK_VER=2.5.0
 ARG KIMCHI_VER=2.5.0
-ARG GINGERBASE_VER=2.3.0
-ARG GINGER_VER=2.4.0
+
 USER 0
 
 RUN yum update -y && yum install -y \
@@ -35,6 +34,8 @@ MAINTAINER Bryan Rodriguez <email@bryanrodriguez.com>
 
 ARG WOK_VER=2.5.0
 ARG KIMCHI_VER=2.5.0
+ARG GINGERBASE_VER=2.3.0
+ARG GINGER_VER=2.4.0
 
 WORKDIR /tmp
 RUN yum update -y -v && yum install -y wget && yum clean all && rm -rf /var/cache/yum
