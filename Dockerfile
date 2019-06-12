@@ -34,16 +34,12 @@ MAINTAINER Bryan Rodriguez <email@bryanrodriguez.com>
 
 ARG WOK_VER=2.5.0
 ARG KIMCHI_VER=2.5.0
-ARG GINGERBASE_VER=2.3.0
-ARG GINGER_VER=2.4.0
 
 WORKDIR /tmp
 RUN yum update -y -v && yum install -y wget && yum clean all && rm -rf /var/cache/yum
 COPY --from=builder /opt/app-root/src/wok/rpm/RPMS/noarch/wok-$WOK_VER-0.el7.noarch.rpm wok.el7.noarch.rpm
 COPY --from=builder /opt/app-root/src/kimchi/rpm/RPMS/noarch/kimchi-$KIMCHI_VER-0.el7.noarch.rpm kimchi.el7.noarch.rpm
-# RUN wget -O gingerbase.el7.noarch.rpm http://kimchi-project.github.io/gingerbase/downloads/ginger-base-$GINGERBASE_VER-0.noarch.rpm
 RUN wget -O gingerbase.el7.noarch.rpm http://kimchi-project.github.io/gingerbase/downloads/latest/ginger-base.el7.centos.noarch.rpm
-# RUN wget -O ginger.el7.noarch.rpm http://kimchi-project.github.io/ginger/downloads/ginger-$GINGER_VER-0.noarch.rpm
 RUN wget -O ginger.el7.noarch.rpm http://kimchi-project.github.io/ginger/downloads/latest/ginger.el7.centos.noarch.rpm
 
 RUN yum update -y && yum install -y epel-release
@@ -61,10 +57,6 @@ RUN yum update -y -v && yum install -y \
 		logrotate \
 		fontawesome-fonts \
 		python-psutil \
-	&& yum clean all \
-	&& rm -rf /var/cache/yum
-	
-RUN yum update -y -v && yum install -y \
 		libvirt-python \
 		libvirt \
 		libvirt-daemon-config-network \
@@ -83,10 +75,6 @@ RUN yum update -y -v && yum install -y \
 		python-magic \
 		python-paramiko \
 		python-pillow \
-	&& yum clean all \
-	&& rm -rf /var/cache/yum
-	
-RUN yum update -y -v && yum install -y \
 		sudo \
 	&& yum clean all \
 	&& rm -rf /var/cache/yum
@@ -99,7 +87,7 @@ RUN yum install -y \
     && rm -f *.rpm \
     && systemctl enable wokd.service
 	
-COPY init /bin/prep-init
+COPY prep-init /bin/prep-init
 	
 WORKDIR /
 
