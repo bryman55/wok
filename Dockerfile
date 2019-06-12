@@ -37,6 +37,7 @@ ARG WOK_VER=2.5.0
 ARG KIMCHI_VER=2.5.0
 
 WORKDIR /tmp
+RUN yum update -y -v && yum install -y wget && yum clean all && rm -rf /var/cache/yum
 COPY --from=builder /opt/app-root/src/wok/rpm/RPMS/noarch/wok-$WOK_VER-0.el7.noarch.rpm wok.el7.noarch.rpm
 COPY --from=builder /opt/app-root/src/kimchi/rpm/RPMS/noarch/kimchi-$KIMCHI_VER-0.el7.noarch.rpm kimchi.el7.noarch.rpm
 RUN wget -O gingerbase.el7.noarch.rpm http://kimchi-project.github.io/gingerbase/downloads/ginger-base-$GINGERBASE_VER-0.noarch.rpm
