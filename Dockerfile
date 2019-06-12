@@ -28,8 +28,8 @@ RUN git clone -b $KIMCHI_VER --single-branch https://github.com/kimchi-project/k
     make && \
     make rpm
 	
-RUN git clone -b $KIMCHI_VER --recursive https://github.com/kimchi-project/wok.git && \
-    cd wok && \
+RUN git clone -b $KIMCHI_VER --recursive https://github.com/kimchi-project/wok.git plugins && \
+    cd plugins && \
     git submodule update --remote && \
     ./build-all.sh
 
