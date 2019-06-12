@@ -5,7 +5,7 @@ ARG WOK_VER=2.5.0
 ARG KIMCHI_VER=2.5.0
 USER 0
 
-RUN yum update -y && yum install -y && \
+RUN yum update -y && yum install -y \
 	gcc \
 	make \
 	autoconf \
@@ -40,8 +40,7 @@ COPY --from=builder /kimchi/rpm/RPMS/noarch/kimchi-$KIMCHI_VER-0.el7.noarch.rpm 
 
 RUN yum update -y && yum install -y epel-release
 
-RUN yum update -y -v \
-	&& yum install -y \
+RUN yum update -y -v && yum install -y \
 		python-cherrypy \
 		python-cheetah \
 		PyPAM m2crypto \
@@ -57,8 +56,7 @@ RUN yum update -y -v \
 	&& yum clean all \
 	&& rm -rf /var/cache/yum
 	
-RUN yum update -y -v \
-	&& yum install -y \
+RUN yum update -y -v && yum install -y \
 		libvirt-python \
 		libvirt \
 		libvirt-daemon-config-network \
