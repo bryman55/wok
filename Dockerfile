@@ -99,7 +99,7 @@ RUN yum install -y \
     && rm -f *.rpm \
     && systemctl enable wokd.service
 	
-COPY init /bin/init
+COPY init /bin/prep-init
 	
 WORKDIR /
 
@@ -108,5 +108,5 @@ ENV HASHPASS '$6$JQla14fc5vWHfON9$j4Z7ODZcQpP4UHCLE2kMDjVVe6MS70VTgIjS10mVvfHylI
 
 EXPOSE 8001 8010
 
-ENTRYPOINT ["/bin/init"]
+ENTRYPOINT ["/bin/prep-init"]
 CMD []

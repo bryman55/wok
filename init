@@ -1,4 +1,4 @@
 #!/bin/bash
 
-useradd -G wheel -p $HASHPASS $USERNAME && \
-/usr/sbin/init
+useradd -G wheel -p $HASHPASS $USERNAME
+exec /usr/sbin/init
