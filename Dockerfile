@@ -9,19 +9,19 @@ RUN yum update -y && yum install -y && \
 	make \
 	autoconf \
 	automake \
-	gettext-devel 
+	gettext-devel \
 	git \
 	rpm-build \
 	libxslt \
 	python-lxml
 
-RUN git clone --single-branch -b $WOK_VER https://github.com/kimchi-project/wok.git && \
+RUN git clone -b $WOK_VER --single-branch https://github.com/kimchi-project/wok.git && \
     cd wok && \
     ./autogen.sh --system && \
     make && \
     make rpm
 
-RUN git clone --single-branch -b $KIMCHI_VER https://github.com/kimchi-project/kimchi.git && \
+RUN git clone -b $KIMCHI_VER --single-branch https://github.com/kimchi-project/kimchi.git && \
     cd kimchi && \
     ./autogen.sh --system && \
     make && \
