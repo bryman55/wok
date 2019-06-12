@@ -86,12 +86,10 @@ RUN yum update -y -v && yum install -y \
 	&& yum clean all \
 	&& rm -rf /var/cache/yum
 	
-# RUN yum update -y -v && yum install -y \
-		# pyparted \
-		# python-cherrypy \
-		# gettext \
-	# && yum clean all \
-	# && rm -rf /var/cache/yum
+RUN yum update -y -v && yum install -y \
+		sudo \
+	&& yum clean all \
+	&& rm -rf /var/cache/yum
 
 RUN yum install -y \
 		wok.el7.noarch.rpm \
@@ -101,8 +99,8 @@ RUN yum install -y \
     && rm -f *.rpm \
     && systemctl enable wokd.service
 	
-RUN useradd wok-admin
-
+COPY init /bin/init
+	
 WORKDIR /
 
 ENV USERNAME 'wok-admin'
@@ -110,5 +108,5 @@ ENV HASHPASS '$6$JQla14fc5vWHfON9$j4Z7ODZcQpP4UHCLE2kMDjVVe6MS70VTgIjS10mVvfHylI
 
 EXPOSE 8001 8010
 
-ENTRYPOINT ["sh -c"]
-CMD ["useradd -p $HASHPASS $USERNAME && /usr/sbin/init"]
+ENTRYPOINT ["/bin/init"]
+CMD []
