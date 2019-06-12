@@ -27,6 +27,11 @@ RUN git clone -b $KIMCHI_VER --single-branch https://github.com/kimchi-project/k
     ./autogen.sh --system && \
     make && \
     make rpm
+	
+RUN git clone -b $KIMCHI_VER --recursive https://github.com/kimchi-project/wok.git && \
+    cd wok && \
+    git submodule update --remote && \
+    ./build-all.sh
 
 FROM centos/systemd
 MAINTAINER Bryan Rodriguez <email@bryanrodriguez.com>
@@ -83,6 +88,8 @@ RUN yum install -y \
 		kimchi.el7.noarch.rpm && \
     rm -f wok.el7.noarch.rpm kimchi.el7.noarch.rpm && \
     systemctl enable wokd.service
+	
+RUN useradd wok-admin
 
 WORKDIR /
 
