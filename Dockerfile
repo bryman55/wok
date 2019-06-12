@@ -3,6 +3,7 @@ MAINTAINER Bryan Rodriguez <email@bryanrodriguez.com>
 
 ARG WOK_VER=2.5.0
 ARG KIMCHI_VER=2.5.0
+USER 0
 
 RUN yum update -y && yum install -y && \
 	gcc \
