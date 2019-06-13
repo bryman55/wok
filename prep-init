@@ -1,4 +1,14 @@
 #!/bin/bash
 
-useradd -G wheel -p $HASHPASS $USERNAME
+if id -u $USERNAME > /dev/null; then
+	echo "$USERNAME exists"
+else
+	useradd -G wheel -p $HASHPASS $USERNAME
+fi
+
+if ip addr | grep virbr0; then
+	ip link del virbr0
+	ip link del virbr0-nic
+fi
+
 exec /usr/sbin/init
