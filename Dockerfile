@@ -87,6 +87,8 @@ RUN yum install -y \
     && rm -f *.rpm \
     && systemctl enable wokd.service
 	
+RUN sed -i 's/udev_sync = 1/udev_sync = 0/g' /etc/lvm/lvm.conf && sed -i 's/udev_rules = 1/udev_rules = 0/g' /etc/lvm/lvm.conf
+	
 COPY prep-init /bin/prep-init
 	
 WORKDIR /
